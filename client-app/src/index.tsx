@@ -5,12 +5,15 @@ import './app/layout/styles.css';
 import App from './app/layout/App';
 import reportWebVitals from './reportWebVitals';
 import { store, StoreContext } from './app/stores/store';
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
   // Some 3rd party libraries will not work with react if its in strict mode.
   // <React.StrictMode> 
     <StoreContext.Provider value={store}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </StoreContext.Provider>,
   // </React.StrictMode>,
   document.getElementById('root')

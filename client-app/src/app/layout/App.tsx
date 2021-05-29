@@ -1,35 +1,32 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import { Container } from 'semantic-ui-react';
 import NavBar from './NavBar';
 import ActivityDashboard from '../../features/activities/dashboard/ActivityDashboard';
-import LoadingComponent from './LoadingComponent';
-import { useStore } from '../stores/store';
 import { observer } from 'mobx-react-lite';
+import HomePage from '../../features/home/homepage';
+import { Route, useLocation } from 'react-router-dom';
+import ActivityForm from '../../features/activities/form/ActivityForm';
+import ActivityDetails from '../../features/activities/details/ActivityDetails';
 
 function App() {
-  const {activityStore} = useStore();
-  // Get data from API. Use useState hook with name of variable
-  // where we're going to store state, and function called to 
-  // set the state. Set initial state of emtpy array.
-
-  useEffect(() => {
-    activityStore.loadActivities();
-  }, [activityStore])
-    // add array of dependencies (here empty) to make sure that useEffect
-    // only runs one time. useEffect is a hook that fetches data from 
-    // server. If it runs, it will set a change to activities, causing 
-    // a re-render. in turn that acses activities to change, and it will 
-    // re-render again. thus we need to send in an emtpy array of
-    // dependencies to prevent this.
-
-  if (activityStore.loadingInitial) return <LoadingComponent content='Loading app' />
+  const location = useLocation();
 
   return (
     <Fragment>
-      <NavBar />
-      <Container style={{marginTop: '7em'}}>
-        <ActivityDashboard />
-      </Container>
+      <Route exact path='/' component={HomePage} />
+      <Route
+        path={'/(.+)'} // any route that matches / plus something else
+        render={() => ( // use render method
+          <Fragment>
+            <NavBar />
+            <Container style={{marginTop: '7em'}}>
+              <Route exact path='/activities' component={ActivityDashboard} />
+              <Route path='/activities/:id' component={ActivityDetails} />
+              <Route key={location.key} path={['/createActivity', '/manage/:id']} component={ActivityForm} />
+            </Container>
+          </Fragment>
+        )}
+      />
     </Fragment>
   );
 }
