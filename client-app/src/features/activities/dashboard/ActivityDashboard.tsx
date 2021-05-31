@@ -23,7 +23,7 @@ export default observer(function ActivityDashboard() {
 		// re-render again. thus we need to send in an emtpy array of
 		// dependencies to prevent this.
 
-	if (activityStore.loadingInitial) return <LoadingComponent content='Loading app' />
+	if (activityStore.loadingInitial) return <LoadingComponent content='Loading activities...' />
 
 	return (
 		<Grid>
