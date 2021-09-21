@@ -89,6 +89,7 @@ const Profiles = {
 			headers: {'Content-type': 'multipart/form-data'}
 		})
 	},
+	updateProfile: (profile: Partial<Profile>) => request.put<void>(`/profiles`, profile),
 	setMainPhoto: (id: string) => request.post(`/photos/${id}/setMain`, {}),
 	deletePhoto: (id: string) => request.del(`/photos/${id}`)
 }

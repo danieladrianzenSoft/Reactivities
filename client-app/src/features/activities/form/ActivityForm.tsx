@@ -63,7 +63,7 @@ export default observer (function ActivityForm() {
 				{({ handleSubmit, isValid, isSubmitting, dirty }) => (
 				<Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
 					<CustomTextInput name='title' placeholder='Title' />
-					<CustomTextArea rows={3} placeholder='Description' name='description'/>
+					<CustomTextArea rows={4} placeholder='Description' name='description'/>
 					<CustomSelectInput options={categoryOptions} placeholder='Category' name='category'/>
 					{/* <input type="date" name="date"></input> */}
 					<CustomDateInput 
