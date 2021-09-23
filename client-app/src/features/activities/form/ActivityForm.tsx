@@ -78,7 +78,7 @@ export default observer (function ActivityForm() {
 					<CustomTextInput placeholder='Venue' name='venue'/>
 					<Button 
 						disabled={ isSubmitting || !dirty || !isValid}
-						loading={isSubmitting}
+						loading={ isSubmitting }
 						floated='right'
 						positive 
 						type='submit'

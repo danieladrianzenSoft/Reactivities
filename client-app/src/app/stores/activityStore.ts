@@ -177,7 +177,7 @@ export default class ActivityStore {
 	}
 
 	updateActivity = async (activity: ActivityFormValues) => {
-		this.loading = true;
+		// this.loading = true;
 		try {
 			await agent.Activities.update(activity);
 			runInAction(() => {

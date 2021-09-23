@@ -13,7 +13,7 @@ const sleep = (delay: number) => {
 	})
 }
 
-axios.defaults.baseURL = 'https://localhost:5001/api/';
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 axios.interceptors.request.use(config => {
 	const token = store.commonStore.token;
@@ -22,7 +22,9 @@ axios.interceptors.request.use(config => {
 })
 
 axios.interceptors.response.use(async response => {
-	await sleep(1000);
+	if (process.env.NODE_ENV === 'development'){
+		await sleep(1000);
+	}
 	const pagination = response.headers['pagination'];
 	if (pagination) {
 		response.data = new PaginatedResult(response.data, JSON.parse(pagination));
@@ -74,17 +76,17 @@ const request = {
 const Activities = {
 	list: (params: URLSearchParams) => axios.get<PaginatedResult<Activity[]>>('activities', {params})
 		.then(responseBody),
-	details: (id: string) => request.get<Activity>(`activities/${id}`),
-	create: (activity: ActivityFormValues) => request.post<void>('activities', activity),
-	update: (activity: ActivityFormValues) => request.put<void>(`activities/${activity.id}`, activity),
-	delete: (id: string) => request.del<void>(`activities/${id}`),
+	details: (id: string) => request.get<Activity>(`/ctivities/${id}`),
+	create: (activity: ActivityFormValues) => request.post<void>('/activities', activity),
+	update: (activity: ActivityFormValues) => request.put<void>(`/activities/${activity.id}`, activity),
+	delete: (id: string) => request.del<void>(`/activities/${id}`),
 	attend: (id: string) => request.post<void>(`/activities/${id}/attend`, {})
 }
 
 const Account = {
-	current: () => request.get<User>('account'),
-	login: (user: UserFormValues) => request.post<User>('account/login', user),
-	register: (user: UserFormValues) => request.post<User>('account/register', user)
+	current: () => request.get<User>('/account'),
+	login: (user: UserFormValues) => request.post<User>('/account/login', user),
+	register: (user: UserFormValues) => request.post<User>('/account/register', user)
 }
 
 const Profiles = {

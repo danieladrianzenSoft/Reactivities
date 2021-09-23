@@ -1,10 +1,9 @@
-import { profile } from 'console';
 import { format } from 'date-fns';
 import { observer } from 'mobx-react-lite';
 import React, { SyntheticEvent, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Grid, Header, Tab, TabProps, Image } from 'semantic-ui-react';
-import { Profile, UserActivity } from '../../app/models/profile';
+import { UserActivity } from '../../app/models/profile';
 import { useStore } from '../../app/stores/store';
 
 const panes = [
